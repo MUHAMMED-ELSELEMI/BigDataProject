@@ -31,26 +31,29 @@ Hadoop HDFS (optional, can use AWS S3 or Google Drive as alternative , but i am 
  
 2. Create a MySQL database named bigdata 
    Import the data from csv files
-3. create a topic named SAU 
-navigate to bin file where you installed kafaka then :
-     run zookeeper server ;
-  ./zookeeper-server-start.sh ../config/zookeeper.properties   NOTE: this could be a little different depending on the OS that you are using 
-    run kafka server ;
-   ./kafka-server-start.sh ../config/server.properties
+   
+4. create a kafka topic named SAU 
+   navigate to bin file where you installed kafaka then :
+      1. run zookeeper server ;
+            ./zookeeper-server-start.sh ../config/zookeeper.properties   NOTE: this could be a little different depending on the OS that you are using 
+      2. run kafka server ;
+          ./kafka-server-start.sh ../config/server.properties
 
-4. then run the data generator .py ; 
+5.  run data generator .py ; 
    navigate to the dir where io_device located : 
-   cd 3rdProject/
+    cd 3rdProject/
    then run it ; 
    python3 iot_devices.py
 
-5. for running the streamhandler class ;
+6. for running the streamhandler class ;
     navigate to :
     cd 3rdProject/StreamHandler/
    
      then run it with the command ; 
        sbt package && spark-submit --class StreamHandler --master local[*] --packages "org.apache.spark:spark-sql-kafka-0-10_2.13:3.5.3,com.datastax.spark:spark-cassandra-connector_2.13:3.5.1,com.datastax.cassandra:cassandra-driver-core:4.0.0"  target/scala-2.13/stream-handler_2.13-1.0.jar  (NOTE you have to set up sbt build first ) 
    
-6. last step ;
-    run you java app and access via ;
+7. last step ;
+    run you java app that is located in [this_repo](https://github.com/MUHAMMED-ELSELEMI/HadoopProject/tree/master)
+
+8. access via ;
     http://localhost:8080
